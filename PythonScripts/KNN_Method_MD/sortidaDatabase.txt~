@@ -1,0 +1,21 @@
+"AAGE",58,
+"F_ACLSWKR", "Selfemployednot_incorporated"
+"F_EDUCATION" ,"Some_college_but_no_degree"
+,"F_STATUSMARIT" ,"Divorced",
+"F_AMJIND","Construction",
+"F_AMJOCC", "Precision_production_craft_&_repair",
+"F_RACE",  "White"
+"F_ORIGIN", ,"All_other",
+"F_ASEX", "Male"
+"F_AWKSTAT", ,"Children_or_Armed_Forces",
+"F_FILESTATUS" "Head_of_household"
+,"F_HHDFMX", ,"Householder",
+"F_HHDREL", "Householder"
+"MARSUPWT" 1053.55
+,"CHILDS", ,1,
+"F_CONBIRTHFATH", "United-States",
+"F_CONBIRTHMOTH" "United-States"
+,"F_PENATVTY", ,"United-States"
+"F_PRCITSHP", ,"Native-_Born_in_the_United_States"
+"WKSWORKYEAR",52,
+"TARGET""-_50000."
