@@ -26,14 +26,14 @@ def normalizeAttribute(attr1):
 	return (a_norm.tolist())[0]
 
 def loadData(): #esta funcion debe devolver los datos en un np.array()
-	csv = pd.read_csv('train.csv')
+	csv = pd.read_csv('../../dataset_MD/train.csv')
 	# turn categoricals to new column with 0 or 1 (except TARGET)
 	train = pd.get_dummies(csv, columns=['F_ACLSWKR', 'F_EDUCATION', 'F_STATUSMARIT', 'F_AMJIND', 'F_AMJOCC', 'F_RACE',
 										 'F_ORIGIN', 'F_ASEX', 'F_AWKSTAT', 'F_FILESTATUS', 'F_HHDFMX', 'F_HHDREL',
 										 'F_CONBIRTHFATH', 'F_CONBIRTHMOTH', 'F_PENATVTY', 'F_PRCITSHP'])
 	target = train['TARGET']
 	train_wo_target = train.drop('TARGET', 1)
-	test_csv = pd.read_csv('test.csv')
+	test_csv = pd.read_csv('../../dataset_MD/test.csv')
 	test_wo_label = test_csv.drop('TARGET', 1)
 	test = pd.get_dummies(test_wo_label)
 	missing_columns = [item for item in list(train_wo_target.keys()) if item not in list(test.keys())]
@@ -54,26 +54,18 @@ def computeBestK(knn, dTrain, labTrain, dTest, labTest):
     plt.show()
 
 def datasetInMemory(): #Load census.csv in RAM
-	if os.path.isfile('census.csv'):
-		df = pd.read_csv('census.csv')
+	if os.path.isfile('../../dataset_MD/census.csv'):
+		df = pd.read_csv('../../dataset_MD/census.csv')
 	else:
 		print("---census.csv not found----")
 		os._exit(1)
 	return df
 
 def doKNNandFit(X,y,mode):
-	print("---Create k-NN----")
-	knn = nb.KNeighborsClassifier(n_neighbors=23, weights='uniform', algorithm='auto', leaf_size=30,
-								  metric='minkowski',
-								  metric_params=None, p=2, n_jobs=4)
-	print("---Train k-NN----")
-	knn.fit(X, y)
-	''' MEMORY ERROR...
 	if mode == 'CV':
 		print("---Read from local k-NN----")
 		if os.path.isfile('KNN_Classifier'):
-			with open('KNN_Classifier', 'rb') as file:
-				knn = pickle.load(file) #Import KNN classifier
+			knn = pickle.load(open('KNN_Classifier', 'rb')) #Import KNN classifier
 		else:
 			print("---Create k-NN----")
 			knn = nb.KNeighborsClassifier(n_neighbors=23, weights='uniform', algorithm='auto', leaf_size=30, metric='minkowski',
@@ -82,14 +74,7 @@ def doKNNandFit(X,y,mode):
 			knn.fit(X, y)
 			print('---Storing KNN_Classifier---')
 			pickle.dump(knn, open("KNN_Classifier", "wb"))
-	else:
-		print("---Create k-NN----")
-		knn = nb.KNeighborsClassifier(n_neighbors=23, weights='uniform', algorithm='auto', leaf_size=30,
-									  metric='minkowski',
-									  metric_params=None, p=2, n_jobs=4)
-		print("---Train k-NN----")
-		knn.fit(X, y)
-	'''
+
 	return knn
 
 def doKfoldCrossValidation():
@@ -102,9 +87,9 @@ def doKfoldCrossValidation():
 										 'F_CONBIRTHFATH', 'F_CONBIRTHMOTH', 'F_PENATVTY', 'F_PRCITSHP'])
 	X = train.drop('TARGET', 1)
 	y = train['TARGET']
-	knn = doKNNandFit(X, y, 'KCV')
+	knn = doKNNandFit(X, y, 'CV')
 	print("---Start cross_val_score----")
-	scores = cross_val_score(knn, X=X, y=y, cv=5, scoring='f1_macro')
+	scores = cross_val_score(knn, X=X, y=y, cv=3, scoring='f1_macro')
 	print("Scores: {}".format(scores))
 	print("Median of scores: {}".format(np.mean(scores)))
 
@@ -120,7 +105,7 @@ def doCrossValidation():
 if __name__ == '__main__':
 	start = time.time()
 	# Chose one
-	doCrossValidation()
-	#doKfoldCrossValidation()
+	#doCrossValidation()
+	doKfoldCrossValidation()
 	end = time.time()
 	print("Global exec time: {}".format(end-start))
