@@ -1,6 +1,6 @@
-# Small python project
+# Python: computer vision project
+### Classification of leaves
 
-* Back-up repository from some work done in University
+This project was done using [http://scikit-learn.org/](http://scikit-learn.org/) library for python. The idea was to use a combination of weighted-KNN and SVM classifiers to achieve a better result than just only using one of them.
 
-![Alert Image]
-(http://www.labelsourceonline.co.uk/ProdImages/Page005/les241.gif)
+
