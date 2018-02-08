@@ -1,6 +1,6 @@
-# BackUP_PTI
+# Small python project
 
-* This is just a backUp repository. Code can't be used.
+* Back-up repository from some work done in University
 
 ![Alert Image]
 (http://www.labelsourceonline.co.uk/ProdImages/Page005/les241.gif)
